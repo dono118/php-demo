@@ -23,7 +23,8 @@ if (@$_POST['sub']) {
     echo "上传失败! 仅支持jpg,png,gif";
     exit;
   }
-  $namet = time();
+  $mtime = explode(' ', microtime());
+  $namet = ($mtime[1] + $mtime[0]) * 10000;
   $name = $namet . '.' . $ext_name;
 
   if (move_uploaded_file($file_tmp, $dir . $name)) {
