@@ -3,7 +3,7 @@
 class Db
 {
     public $conn;
-    function __construct($table)
+    function __construct()
     {
         $conn = mysqli_connect("localhost", "root", "root");
         if (!$conn) {
@@ -11,7 +11,7 @@ class Db
             die;
         }
 
-        mysqli_select_db($conn, $table);
+        mysqli_select_db($conn, "test");
         mysqli_query($conn, "set names utf8");
         $this->conn = $conn;
     }
@@ -73,11 +73,13 @@ class Db
 
     function __destruct()
     {
-        mysqli_close($this->conn);
+        if ($this->conn != null) {
+            mysqli_close($this->conn);
+        }
     }
 }
 
-$db = new Db("test");
+$db = new Db();
 // $arr = $db->select("select * from t_user");
 // print_r($arr);
 // $bool = $db->execute("insert into t_user set username='zhangsan',password='123456'");
